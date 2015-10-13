@@ -31,5 +31,11 @@ class Video < ActiveRecord::Base
 	def add_cast_or_crew(role, person_name)
 		self.person_with_roles << Person.create_with_role(role, name: person_name)
 	end
+
+
+
+	# def to_json(*args)
+	# 	self.as_json(only: [:title, :desc], methods: [:actors, :directors]).to_json
+	# end
 	
 end

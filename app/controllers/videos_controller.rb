@@ -1,58 +1,32 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :update, :destroy]
 
-  # GET /videos
-  # GET /videos.json
+  # curl -X GET http://localhost:3000/videos
   def index
     @videos = Video.all
 
-    render json: @videos
+    all_videos = []
+    @videos.each { |video| all_videos << video.as_json(only: [:title, :desc], methods: [:actors, :directors]) }
+
+    render json: { videos: all_videos, success: true }
   end
 
-  # POST /videos
-  # POST /videos.json
+  # curl -X POST --data "title=title&desc=description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos
   def create
-    # p "#" * 50
-    # p "VIDEO PARAMS!!!!!!!!!!"
-    # p params
     @video = Video.new(title: params[:title], desc: params[:desc])
     actors = params[:actors].split(',')
     @video.add_actors(actors)
     directors = params[:directors].split(',')
     @video.add_directors(directors)
-    # p "*" * 30
-    # p "@video is:"
-    # p @video
-    # p "*" * 30
-    # p "@video.actors is:"
-    # p @video.actors
-    # p "*" * 30
-    # p "@video.directors is:"
-    # p @video.directors
-    # p "#" * 50
 
     if @video.save
-      # p "------------------- YOU MADE IT"
-      # p "*" * 30
-      # p "@video is:"
-      # p @video
-      # p "*" * 30
-      # p "@video.actors is:"
-      # p @video.actors
-      # p "*" * 30
-      # p "@video.directors is:"
-      # p @video.directors
-      # p "*" * 30
-      # return @video.to_json
       render json: {video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true}, status: :created, location: @video
     else
-      # p "NOOOOOOOOOOOOOOOOOOO"
       render json: @video.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /videos/1
-  # PATCH/PUT /videos/1.json
+  # curl -X PUT --data "title=new+title&desc=new+description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos/1
   def update
     @video = Video.find(params[:id])
 
@@ -63,8 +37,7 @@ class VideosController < ApplicationController
     end
   end
 
-  # DELETE /videos/1
-  # DELETE /videos/1.json
+  # curl -X DELETE http://localhost:3000/videos/1
   def destroy
     # @video.destroy
 
