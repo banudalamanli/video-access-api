@@ -17,7 +17,6 @@ class Video < ActiveRecord::Base
 	def add_actors(actors)
 		actors.each do |actor|
 			self.add_cast_or_crew("actor", actor)
-			# self.person_with_roles << Person.create_with_role('actor', name: actor)
 		end
 		self
 	end
@@ -25,7 +24,6 @@ class Video < ActiveRecord::Base
 	def add_directors(directors)
 		directors.each do |director|
 			self.add_cast_or_crew("director", director)
-			# self.person_with_roles << Person.create_with_role('director', name: director)
 		end
 		self
 	end
