@@ -4,9 +4,7 @@ class VideosController < ApplicationController
 
   # curl -X GET http://localhost:3000/videos
   def index
-    all_videos = Video.all.map do |video| 
-      video.jsonify 
-    end
+    all_videos = Video.all.map { |video| video.jsonify }
 
     render json: { videos: all_videos, success: true }
   end
@@ -21,7 +19,7 @@ class VideosController < ApplicationController
     if @video.save
       render json: { video: @video.jsonify, success: true }, status: :created, location: @video
     else
-      render json: { success: false, errors: @video.errors.map{|field, msg| msg}.join(', ') }, status: :unprocessable_entity
+      render json: { success: false, errors: missing_field_errors }, status: :unprocessable_entity
     end
   end
 
@@ -45,6 +43,10 @@ class VideosController < ApplicationController
 
   private
 
+    def missing_field_errors
+      @video.errors.map{ |field, msg| msg }.join(', ')
+    end
+
     def set_video
       @video = Video.find(params[:id])
     end
@@ -54,15 +56,15 @@ class VideosController < ApplicationController
     end
 
     def actor_params
-      params.permit(:actor).split(',')
+      params[:actors].split(',')
     end
 
     def director_params
-      params.permit(:director).split(',')
+      params[:directors].split(',')
     end
 
     def invalid_video
-      render json: { success: false, error: "invalid video ID"}
+      render json: { success: false, error: "Invalid video ID"}
     end
 
 end
