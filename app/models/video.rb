@@ -6,14 +6,6 @@ class Video < ActiveRecord::Base
 
 	validates :title, :desc, presence: true
 
-	def actors
-		self.people.actors
-	end
-
-	def directors
-		self.people.directors
-	end
-
 	def add_actors(actors)
 		actors.each do |actor|
 			self.add_cast_or_crew("actor", actor)
@@ -26,6 +18,14 @@ class Video < ActiveRecord::Base
 			self.add_cast_or_crew("director", director)
 		end
 		self
+	end
+
+	def actors
+		self.people.actors
+	end
+
+	def directors
+		self.people.directors
 	end
 
 	def add_cast_or_crew(role, person_name)
