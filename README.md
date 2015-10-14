@@ -1,6 +1,6 @@
 # Video MetaData Access API
 
-An API to access Video Metadata Information.
+An API to access Video Metadata Information.<br/>
 You may find the schema design for the database [here](https://github.com/banud/video-access-api/blob/master/app/assets/images/database_schema.png)
 
 ### Video Methods
