@@ -2,16 +2,12 @@ class VideosController < ApplicationController
   before_action :set_video, only: [:update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_video
 
-  # curl -X GET http://localhost:3000/videos
   def index
-    all_videos = Video.all.map do |video| 
-      video.jsonify 
-    end
+    all_videos = Video.all.map { |video| video.jsonify }
 
     render json: { videos: all_videos, success: true }
   end
 
-  # curl -X POST --data "title=title&desc=description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos
   def create
     @video = Video.new(video_params)
 
@@ -25,7 +21,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # curl -X PUT --data "title=new+title&desc=new+description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos/1
   def update
     @video = Video.find(params[:id])
 
@@ -34,7 +29,6 @@ class VideosController < ApplicationController
     end
   end
 
-  # curl -X DELETE http://localhost:3000/videos/1
   def destroy
     video_data = @video.jsonify
 
@@ -42,6 +36,7 @@ class VideosController < ApplicationController
       render json: { video: video_data, success: true }
     end
   end
+
 
   private
 

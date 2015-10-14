@@ -37,7 +37,6 @@ class Video < ActiveRecord::Base
 	def jsonify
 		self.as_json(only: [:title, :desc], methods: [:actors, :directors])
 	end
-	
 end
 
 
