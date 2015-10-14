@@ -11,7 +11,7 @@ Output format is JSON.
 * Adds new video entry.
 * Command: `curl -X POST --data "title=title&desc=description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos`
 
-**Returns:**
+######Returns:
 ```json
 {
     "video": {
@@ -35,7 +35,7 @@ Output format is JSON.
 * Updates existing video entry.
 * Command: `curl -X PUT --data "title=new+title&desc=new+description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos/1`
 
-**Returns:**
+######Returns:
 ```json
 {
     "video": {
@@ -59,7 +59,7 @@ Output format is JSON.
 * Deletes existing video entry and returns deleted video metadata.
 * Command: `curl -X DELETE http://localhost:3000/videos/1`
 
-**Returns:**
+######Returns:
 ```json
 {
     "video": {
@@ -83,7 +83,7 @@ Output format is JSON.
 * Returns list of video entries.
 * Command: `curl -X GET http://localhost:3000/videos`
 
-**Returns:**
+######Returns:
 ```json
 {
     "videos": [
