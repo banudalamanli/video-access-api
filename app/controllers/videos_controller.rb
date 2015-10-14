@@ -4,11 +4,9 @@ class VideosController < ApplicationController
 
   # curl -X GET http://localhost:3000/videos
   def index
-    @videos = Video.all
-
-    all_videos = []
-
-    @videos.each { |video| all_videos << video.as_json(only: [:title, :desc], methods: [:actors, :directors]) }
+    all_videos = Video.all.map do |video| 
+      video.as_json(only: [:title, :desc], methods: [:actors, :directors]) 
+    end
 
     render json: { videos: all_videos, success: true }
   end
