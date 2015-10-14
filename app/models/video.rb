@@ -43,6 +43,10 @@ class Video < ActiveRecord::Base
 	  # self.add_directors(directors)
 	end
 
+	def jsonify
+		self.as_json(only: [:title, :desc], methods: [:actors, :directors])
+	end
+
 	# def update_actors
 		
 	# end

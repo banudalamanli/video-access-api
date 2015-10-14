@@ -5,7 +5,7 @@ class VideosController < ApplicationController
   # curl -X GET http://localhost:3000/videos
   def index
     all_videos = Video.all.map do |video| 
-      video.as_json(only: [:title, :desc], methods: [:actors, :directors]) 
+      video.jsonify 
     end
 
     render json: { videos: all_videos, success: true }
@@ -21,7 +21,7 @@ class VideosController < ApplicationController
     @video.add_actors(actors).add_directors(directors)
 
     if @video.save
-      render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }, status: :created, location: @video
+      render json: { video: @video.jsonify, success: true }, status: :created, location: @video
     else
       render json: @video.errors, status: :unprocessable_entity
     end
@@ -32,13 +32,13 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
 
     if @video.update_video(params)
-      render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }
+      render json: { video: @video.jsonify, success: true }
     end
   end
 
   # curl -X DELETE http://localhost:3000/videos/1
   def destroy
-    video_data = @video.as_json(only: [:title, :desc], methods: [:actors, :directors])
+    video_data = @video.jsonify
 
     if @video.destroy
       render json: { video: video_data, success: true }
