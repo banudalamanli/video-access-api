@@ -57,7 +57,7 @@ class VideosController < ApplicationController
     end
 
     def invalid_video
-      render json: { success: false, error: "invalid video ID"}
+      render json: { success: false, error: "Invalid video ID"}
     end
 
 end
