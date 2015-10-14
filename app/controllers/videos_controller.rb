@@ -15,11 +15,10 @@ class VideosController < ApplicationController
   def create
     @video = Video.new(video_params)
 
-    actors    = params[:actors].split(',')
-    directors = params[:directors].split(',')
+    cast_and_crew_params
 
-    @video.add_actors(actors)
-          .add_directors(directors)
+    @video.add_actors(params[:actors])
+          .add_directors(params[:directors])
 
     if @video.save
       render json: { video: @video.jsonify, success: true }, status: :created, location: @video
@@ -54,6 +53,13 @@ class VideosController < ApplicationController
 
     def video_params
       params.permit(:title, :desc)
+    end
+
+    def cast_and_crew_params
+      params.each do |role, value|
+        params[:actors]    = value.split(',') if role == 'actors'
+        params[:directors] = value.split(',') if role == 'directors'
+      end
     end
 
     def invalid_video
