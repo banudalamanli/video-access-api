@@ -1,3 +1,0 @@
-== README
-
-![DB Schema Design] (images/database_schema.png?raw=true)
