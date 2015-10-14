@@ -15,11 +15,10 @@ class VideosController < ApplicationController
   def create
     @video = Video.new(title: params[:title], desc: params[:desc])
 
-    actors = params[:actors].split(',')
-    @video.add_actors(actors)
-
+    actors    = params[:actors].split(',')
     directors = params[:directors].split(',')
-    @video.add_directors(directors)
+
+    @video.add_actors(actors).add_directors(directors)
 
     if @video.save
       render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }, status: :created, location: @video
