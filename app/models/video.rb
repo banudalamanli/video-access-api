@@ -7,18 +7,17 @@ class Video < ActiveRecord::Base
 	validates_presence_of :title, message: "Missing title field"
 	validates_presence_of :desc, message: "Missing description field"
 	
+	def add_cast_or_crew(role, person_name)
+		self.person_with_roles << Person.create_with_role(role, name: person_name)
+	end
 
 	def add_actors(actors)
-		actors.each do |actor|
-			self.add_cast_or_crew("actor", actor)
-		end
+		actors.each { |actor| self.add_cast_or_crew("actor", actor) }
 		self
 	end
 
 	def add_directors(directors)
-		directors.each do |director|
-			self.add_cast_or_crew("director", director)
-		end
+		directors.each { |director| self.add_cast_or_crew("director", director) }
 		self
 	end
 
@@ -28,10 +27,6 @@ class Video < ActiveRecord::Base
 
 	def directors
 		self.people.directors
-	end
-
-	def add_cast_or_crew(role, person_name)
-		self.person_with_roles << Person.create_with_role(role, name: person_name)
 	end
 
 	def jsonify
