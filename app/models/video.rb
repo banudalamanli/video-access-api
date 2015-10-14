@@ -1,5 +1,4 @@
 class Video < ActiveRecord::Base
-	around_destroy :save_cast_and_crew
 	has_many :cast_and_crew_members, dependent: :destroy
 	has_many :person_with_roles, through: :cast_and_crew_members
 	has_many :people, through: :person_with_roles
@@ -42,12 +41,6 @@ class Video < ActiveRecord::Base
 
 	  # directors = args[:directors].split(',')
 	  # self.add_directors(directors)
-	end
-
-	def save_cast_and_crew
-		@actors_before_destroy    = self.actors.dup
-		@directors_before_destroy = self.directors.dup
-		yield
 	end
 
 	# def update_actors

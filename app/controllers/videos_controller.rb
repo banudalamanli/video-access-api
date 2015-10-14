@@ -39,10 +39,10 @@ class VideosController < ApplicationController
 
   # curl -X DELETE http://localhost:3000/videos/1
   def destroy
-    @video.destroy
+    video_data = @video.as_json(only: [:title, :desc], methods: [:actors, :directors])
 
     if @video.destroy
-      render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }
+      render json: { video: video_data, success: true }
     end
   end
 
