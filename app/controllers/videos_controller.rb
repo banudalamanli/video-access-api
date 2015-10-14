@@ -7,6 +7,7 @@ class VideosController < ApplicationController
     @videos = Video.all
 
     all_videos = []
+
     @videos.each { |video| all_videos << video.as_json(only: [:title, :desc], methods: [:actors, :directors]) }
 
     render json: { videos: all_videos, success: true }
@@ -33,22 +34,17 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
 
-    if @video.update(video_params)
-      head :no_content
-    else
-      render json: @video.errors, status: :unprocessable_entity
+    if @video.update_video(params)
+      render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }
     end
   end
 
   # curl -X DELETE http://localhost:3000/videos/1
   def destroy
-    video_to_delete = @video
     @video.destroy
 
-    head :no_content
-
     if @video.destroy
-      render json: { video: video_to_delete.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }
+      render json: { video: @video.as_json(only: [:title, :desc], methods: [:actors, :directors]), success: true }
     end
   end
 
@@ -65,4 +61,5 @@ class VideosController < ApplicationController
     def invalid_video
       render json: { success: false, error: "invalid video ID"}
     end
+
 end
