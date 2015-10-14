@@ -1,5 +1,5 @@
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :update, :destroy]
+  before_action :set_video, only: [:update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_video
 
   # curl -X GET http://localhost:3000/videos
@@ -13,12 +13,13 @@ class VideosController < ApplicationController
 
   # curl -X POST --data "title=title&desc=description&actors=Tom+Cruise%2CJohn+Smith%2CAngelina+Jolie&directors=Steven+Spielberg" http://localhost:3000/videos
   def create
-    @video = Video.new(title: params[:title], desc: params[:desc])
+    @video = Video.new(video_params)
 
     actors    = params[:actors].split(',')
     directors = params[:directors].split(',')
 
-    @video.add_actors(actors).add_directors(directors)
+    @video.add_actors(actors)
+          .add_directors(directors)
 
     if @video.save
       render json: { video: @video.jsonify, success: true }, status: :created, location: @video
@@ -31,7 +32,7 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
 
-    if @video.update_video(params)
+    if @video.update(video_params)
       render json: { video: @video.jsonify, success: true }
     end
   end
@@ -52,7 +53,7 @@ class VideosController < ApplicationController
     end
 
     def video_params
-      params.require(:video).permit(:title, :desc)
+      params.permit(:title, :desc)
     end
 
     def invalid_video
