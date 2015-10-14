@@ -4,7 +4,9 @@ class Video < ActiveRecord::Base
 	has_many :people, through: :person_with_roles
 
 
-	validates :title, :desc, presence: true
+	validates_presence_of :title, message: "Missing title field"
+	validates_presence_of :desc, message: "Missing description field"
+	
 
 	def add_actors(actors)
 		actors.each do |actor|
@@ -37,3 +39,7 @@ class Video < ActiveRecord::Base
 	end
 	
 end
+
+
+
+

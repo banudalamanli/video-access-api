@@ -23,7 +23,7 @@ class VideosController < ApplicationController
     if @video.save
       render json: { video: @video.jsonify, success: true }, status: :created, location: @video
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: { success: false, errors: @video.errors.map{|field, msg| msg}.join(', ') }, status: :unprocessable_entity
     end
   end
 
