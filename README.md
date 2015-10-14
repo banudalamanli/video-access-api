@@ -1,6 +1,7 @@
 # Video MetaData Access API
 
 An API to access Video Metadata Information.
+You may find the schema design for the database [here](https://github.com/banud/video-access-api/blob/master/app/assets/images/database_schema.png)
 
 ### Video Methods
 Output format is JSON.
@@ -115,9 +116,9 @@ Output format is JSON.
 ```
 
 #### Error Handling
-###### Missing Field
-**Missing title:**
-**Returns:**
+**Missing Field**
+
+###### Missing title returns:
 ```json
 {
     "success": false,
@@ -125,16 +126,14 @@ Output format is JSON.
 }
 ```
 
-**Missing description:**
-**Returns:**
+###### Missing description returns:
 ```json
 {
     "success": false,
     "errors": "Missing description field"
 }
 ```
-**Missing both title and description:**
-**Returns:**
+###### Missing both title and description returns:
 ```json
 {
     "success": false,
@@ -143,8 +142,8 @@ Output format is JSON.
 ```
 
 
-###### Updating or deleting with invalid video ID
-**Returns:**
+**Updating or deleting with invalid video ID**
+######Returns:
 ```json
 {
     "success": false,
@@ -153,7 +152,6 @@ Output format is JSON.
 ```
 
 
-## Development Process:
 
-Please find the schema design for the database [here](https://github.com/banud/video-access-api/blob/master/app/assets/images/database_schema.png)
-[Database Schema Design](images/database_schema.png)
+
+
