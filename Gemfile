@@ -7,13 +7,14 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-
 gem 'pg'
 
 gem "pry-rails"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  # gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 
 # To use Jbuilder templates for JSON
