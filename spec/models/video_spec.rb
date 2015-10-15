@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Video, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to have_many(:cast_and_crew_members).dependent(:destroy) }
+  it { is_expected.to have_many :person_with_roles }
+  it { is_expected.to have_many :people }
+
+  
 end
