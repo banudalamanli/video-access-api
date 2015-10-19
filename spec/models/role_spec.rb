@@ -26,6 +26,5 @@ RSpec.describe Role, type: :model do
 	    	expect(duplicate_role).to be_invalid
 	    end
 	  end
-		
 	end
 end
