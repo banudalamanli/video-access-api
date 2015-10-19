@@ -8,5 +8,13 @@ RSpec.describe Person, type: :model do
 
 	context "validations" do
 	  it { is_expected.to validate_presence_of :name }
+
+	  describe "presence" do
+	    let(:invalid_person) { Person.create name: "" }
+
+	    it "doesn't save without defining name" do
+	    	expect(invalid_person).to be_invalid
+	    end
+	  end
 	end
 end
