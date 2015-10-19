@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Role, type: :model do
 	context "associations" do
 		it { is_expected.to have_many(:person_with_roles).dependent(:destroy) }
-		it { is_expected.to have_many :people }
+		it { is_expected.to have_many(:people).through(:person_with_roles) }
 	end
 
 	context 'validations' do
