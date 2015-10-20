@@ -34,4 +34,35 @@ RSpec.describe Person, type: :model do
 	  	expect(person.roles.count).to eq 2
 	  end
 	end
+
+	context "Class methods: scopes" do
+		let(:person1) { Person.create name: "Jane Doe" }
+		let(:person2) { Person.create name: "John Smith" }
+
+		before do
+			actor = Role.create role: "actor"
+			actor.people << person1
+			actor.people << person2
+			director = Role.create role: "director"
+			director.people << person1
+		end
+
+		describe "Person#role(role_kind)" do
+		  it "returns all person records with the role defined in the argument" do
+		  	expect(Person.role("actor")).to eq(["Jane Doe", "John Smith"])
+		  end
+		end
+
+		describe "Person#actors" do
+		  it "returns all actor records" do
+		  	expect(Person.actors).to eq(["Jane Doe", "John Smith"])
+		  end
+		end
+
+		describe "Person#directors" do
+		  it "returns all director records" do
+		  	expect(Person.directors).to eq(["Jane Doe"])
+		  end
+		end
+	end
 end
