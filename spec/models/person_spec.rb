@@ -12,9 +12,26 @@ RSpec.describe Person, type: :model do
 	  describe "presence" do
 	    let(:invalid_person) { Person.create name: "" }
 
-	    it "doesn't save without defining name" do
+	    it "is not saved without a name" do
 	    	expect(invalid_person).to be_invalid
 	    end
+	  end
+	end
+
+	describe "#roles" do
+		let(:person)   { Person.create name: "John Smith" }
+
+		before do
+			person.roles.create role: "actor"
+			person.roles.create role: "director"
+		end
+
+	  it "returns person's role records" do
+	  	expect(person.roles.map(&:role)).to eq(["actor", "director"])
+	  end
+
+	  it "returns all of the person's roles" do
+	  	expect(person.roles.count).to eq 2
 	  end
 	end
 end
