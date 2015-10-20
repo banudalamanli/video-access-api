@@ -15,6 +15,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   # gem 'shoulda'
   gem 'shoulda-matchers'
+  gem 'faker'
+  gem 'factory_girl'
 end
 
 # To use Jbuilder templates for JSON
