@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'factories'
 
 RSpec.describe Role, type: :model do
 	context "associations" do
@@ -11,7 +12,7 @@ RSpec.describe Role, type: :model do
 	  it { is_expected.to validate_uniqueness_of :role  }
 
 	  describe "presence" do
-	    let(:invalid_role) { Role.create role: "" }
+	    let(:invalid_role) { build(:role, invalid: true) }
 
 	    it "doesn't save without defining role" do
 	    	expect(invalid_role).to be_invalid
@@ -19,8 +20,8 @@ RSpec.describe Role, type: :model do
 	  end
 
 	  describe "uniqueness" do
-	    let(:duplicate_role) { Role.create role: "writer" }
-	    before { Role.create role: "writer" }
+	    let(:duplicate_role) { build(:role, :actor) }
+	    before { create(:role, :actor) }
 
 	    it "doesn't save dupes" do
 	    	expect(duplicate_role).to be_invalid
