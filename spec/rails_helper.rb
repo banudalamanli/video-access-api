@@ -15,6 +15,8 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  config.include FactoryGirl::Syntax::Methods
+
 	Shoulda::Matchers.configure do |config|
 	  config.integrate do |with|
 	    with.test_framework :rspec
