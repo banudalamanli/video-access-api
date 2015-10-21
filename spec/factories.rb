@@ -16,7 +16,7 @@ FactoryGirl.define do
 
     role { invalid ? "" : roles.sample }
     
-    trait :actor 
+    trait :actor do
       role "actor"
     end
 
@@ -27,4 +27,6 @@ FactoryGirl.define do
     factory :actor, traits: [:actor]
     factory :director, traits: [:director]
   end
+
+
 end
